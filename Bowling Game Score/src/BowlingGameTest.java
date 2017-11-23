@@ -69,6 +69,11 @@ public class BowlingGameTest extends TestCase {
         BowlingGame bowlingGame = new BowlingGame("[10,0][10,0][10,0][10,0][10,0][10,0][10,0][10,0][10,0][10,0][10,10]");
         assertEquals(300, bowlingGame.getScore());
     }	
+	// maximum score
+	public void test12() {
+        BowlingGame bowlingGame = new BowlingGame("[-10,0][10,0][10,0][10,0][10,0][10,0][10,0][10,0][10,0][10,0][10,10]");
+        assertEquals(-1, bowlingGame.getScore());
+    }	
 	
 	//TODO: Add more test cases below...
 	
