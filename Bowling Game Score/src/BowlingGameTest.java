@@ -69,9 +69,19 @@ public class BowlingGameTest extends TestCase {
         BowlingGame bowlingGame = new BowlingGame("[10,0][10,0][10,0][10,0][10,0][10,0][10,0][10,0][10,0][10,0][10,10]");
         assertEquals(300, bowlingGame.getScore());
     }	
-	// maximum score
+	// Negative values
 	public void test12() {
         BowlingGame bowlingGame = new BowlingGame("[-10,0][10,0][10,0][10,0][10,0][10,0][10,0][10,0][10,0][10,0][10,10]");
+        assertEquals(-1, bowlingGame.getScore());
+    }	
+	// to big numbers
+	public void test13() {
+        BowlingGame bowlingGame = new BowlingGame("[9,9][9,9][10,0][10,0][10,0][10,0][10,0][10,0][10,0][10,0][10,10]");
+        assertEquals(-1, bowlingGame.getScore());
+    }	
+	// to big numbers
+	public void test14() {
+        BowlingGame bowlingGame = new BowlingGame("[90,0][10,0][10,0][10,0][10,0][10,0][10,0][10,0][10,0][10,0][10,10]");
         assertEquals(-1, bowlingGame.getScore());
     }	
 	

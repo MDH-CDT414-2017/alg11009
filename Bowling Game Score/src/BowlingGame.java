@@ -23,12 +23,12 @@ public class BowlingGame {
 	{	
 		rounds = new ArrayList<Frame>();
 		String[] parts = game.split("\\[");
-		String regex = "(\\[([1-9],[1-9]|10,0)\\]){10}((\\[(([1-9],[1-9])|(10,0))\\])|(\\[(([1-9])|(10))\\]))?";
+		String regex = "^(\\[([0-9],[0-9]|10,0|0,10)\\]){10}((\\[(([0-9],[0-9])|(10,0)|(0,10)|(10,10))\\])|(\\[(([0-9])|(10))\\]))?$";
 		Pattern r = Pattern.compile(regex);
 		Matcher m = r.matcher(game);
 		if(!m.find())
 		{
-			rounds.add(new Frame(0,0));
+			rounds = null;
 			return;
 		}
 		for(int i = 1; i< parts.length; i++)
@@ -40,7 +40,22 @@ public class BowlingGame {
 			}
 			else
 			{
-				rounds.add(new Frame(Integer.parseInt(numbers[0]),Integer.parseInt(numbers[1].replace("]", ""))));
+				int a = Integer.parseInt(numbers[0]);
+				int b = Integer.parseInt(numbers[1].replace("]", ""));
+				if(i == 11)
+				{
+					if(a > 10 || b > 10)
+					{
+						rounds = null;
+						return;
+					}
+				}
+				else if(a + b > 10)
+				{
+					rounds = null;
+					return;
+				}
+				rounds.add(new Frame(a,b));
 			}
 		}
 	}
@@ -50,7 +65,7 @@ public class BowlingGame {
 	 * @return Integer value of Bowling score, in case of error return value is -1 
 	 */
 	public int getScore() {
-		if(!(rounds.size() == 10 || rounds.size() == 11))
+		if(rounds == null)
 		{
 			return -1;
 		}
