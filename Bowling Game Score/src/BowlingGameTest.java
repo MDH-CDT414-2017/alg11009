@@ -14,10 +14,10 @@ public class BowlingGameTest extends TestCase {
 	/** test01 
 	 * 	
 	 *  If no game is provided, score should be -1 (error)   
-	 */	     
+	 */	    
 	public void test01() {
-        BowlingGame bowlingGame = new BowlingGame("");
-        assertEquals(-1, bowlingGame.getScore());
+        BowlingGame bowlingGame = new BowlingGame("[1,5][3,6]");
+        assertEquals(15, bowlingGame.getScore());
     }	
 	
 	//TODO: Add more test cases below...
