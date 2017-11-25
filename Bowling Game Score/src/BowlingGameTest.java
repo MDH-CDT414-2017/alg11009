@@ -15,8 +15,14 @@ public class BowlingGameTest extends TestCase {
 	 * 	
 	 *  If no game is provided, score should be -1 (error)   
 	 */	    
-	public void test01() {
+	// Not enough frames
+	public void test01a() {
         BowlingGame bowlingGame = new BowlingGame("[1,5][3,6]");
+        assertEquals(-1, bowlingGame.getScore());
+    }	
+	// To many frames
+	public void test01b() {
+        BowlingGame bowlingGame = new BowlingGame("[1,5][3,6][7,2][3,6][4,4][5,3][3,3][4,5][8,1][2,6][2,6][2,6][2,6]");
         assertEquals(-1, bowlingGame.getScore());
     }	
 	// base case
@@ -74,7 +80,7 @@ public class BowlingGameTest extends TestCase {
         BowlingGame bowlingGame = new BowlingGame("[-10,0][10,0][10,0][10,0][10,0][10,0][10,0][10,0][10,0][10,0][10,10]");
         assertEquals(-1, bowlingGame.getScore());
     }	
-	// to big numbers
+	// to big numbers in frame
 	public void test13() {
         BowlingGame bowlingGame = new BowlingGame("[9,9][9,9][10,0][10,0][10,0][10,0][10,0][10,0][10,0][10,0][10,10]");
         assertEquals(-1, bowlingGame.getScore());
@@ -84,7 +90,36 @@ public class BowlingGameTest extends TestCase {
         BowlingGame bowlingGame = new BowlingGame("[90,0][10,0][10,0][10,0][10,0][10,0][10,0][10,0][10,0][10,0][10,10]");
         assertEquals(-1, bowlingGame.getScore());
     }	
+	// Incorrect value format ( to many parameters )
+	public void test15() {
+        BowlingGame bowlingGame = new BowlingGame("[8,2,0][10,0][10,0][10,0][10,0][10,0][10,0][10,0][10,0][10,0][10,10]");
+        assertEquals(-1, bowlingGame.getScore());
+    }	
+	// Incorrect value format ( to few parameters )
+	public void test16() {
+        BowlingGame bowlingGame = new BowlingGame("[8][10,0][10][10][10,0][10,0][10,0][10,0][10,0][10,0][10,10]");
+        assertEquals(-1, bowlingGame.getScore());
+    }
+	// No hits at all
+	public void test17() {
+        BowlingGame bowlingGame = new BowlingGame("[0,0][0,0][0,0][0,0][0,0][0,0][0,0][0,0][0,0][0,0][0,0]");
+        assertEquals(0, bowlingGame.getScore());
+    }
+	// Strike with bonus values missing
+	public void test18() {
+	    BowlingGame bowlingGame = new BowlingGame("[1,5][3,6][7,2][3,6][4,4][5,3][3,3][4,5][8,1][10,0]");
+	    assertEquals(-1, bowlingGame.getScore());
+	}
+	// Spare with bonus values missing
+	public void test19() {
+	    BowlingGame bowlingGame = new BowlingGame("[1,5][3,6][7,2][3,6][4,4][5,3][3,3][4,5][8,1][7,3]");
+	    assertEquals(-1, bowlingGame.getScore());
+	}
+	// Two strikes with bonus missing
+	public void test20() {
+	    BowlingGame bowlingGame = new BowlingGame("[1,5][3,6][7,2][3,6][4,4][5,3][3,3][4,5][10,0][10,0]");
+	    assertEquals(-1, bowlingGame.getScore());
+	}
 	
-	//TODO: Add more test cases below...
 	
 }

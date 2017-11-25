@@ -6,56 +6,58 @@ import java.util.regex.Pattern;
 /** BowlingGame Score calculator 
  *
  * @author CDT414 alg11009 - Andreas Ljungberg: 
- * @version 1.0 
+ * @version 1.1 
  * @date 2017-11-23
  * 
- * Version	Initials	Time	Description
- * 
+ * Version     DateTime        Initials    Description
+ * 1.0		    171123 1600     AL          Initial version
+ * 1.1          171125 1900     AL          Added few test cases, fixed errors from new test cases
  */
-public class BowlingGame {
+public class BowlingGame  
+{
 
-	private List<Frame> rounds;
+	private List<Frame> _rounds;
 	/** BowlingGame Score calculator constructor which require string as input 
 	 * @param game Expected format "[n,n][n,n]..[n,n]"
 	 * 
 	 */	 
 	public BowlingGame(String game)
 	{	
-		rounds = new ArrayList<Frame>();
+		_rounds = new ArrayList<Frame>();
 		String[] parts = game.split("\\[");
-		String regex = "^(\\[([0-9],[0-9]|10,0|0,10)\\]){10}((\\[(([0-9],[0-9])|(10,0)|(0,10)|(10,10))\\])|(\\[(([0-9])|(10))\\]))?$";
+		String regex = "^(\\[([0-9],[0-9]|10,0|0,10)\\]){10}((\\[(([0-9],[0-9])|(10,0)|(0,10)|(10,10))\\])|(\\[(([0-9])|(10))\\]))?$"; // match with this nice pattern
 		Pattern r = Pattern.compile(regex);
 		Matcher m = r.matcher(game);
-		if(!m.find())
+		if(!m.find()) // does it match ? 
 		{
-			rounds = null;
+			_rounds = null;
 			return;
 		}
-		for(int i = 1; i< parts.length; i++)
+		for(int i = 1; i< parts.length; i++) // parse valid text, regex made sure we will be able to parse it.
 		{
 			String[] numbers = parts[i].split(",");
-			if(numbers.length == 1) // extra spare
+			if(numbers.length == 1) // extra spare ( only 1 value )
 			{
-				rounds.add(new Frame(Integer.parseInt(numbers[0].replace("]", "")),0));
+				_rounds.add(new Frame(Integer.parseInt(numbers[0].replace("]", "")),0));
 			}
 			else
 			{
 				int a = Integer.parseInt(numbers[0]);
 				int b = Integer.parseInt(numbers[1].replace("]", ""));
-				if(i == 11)
+				if(i == 11) // we are at a bonus frame
 				{
-					if(a > 10 || b > 10)
+					if(a > 10 || b > 10) // since two ten are allowed we do this
 					{
-						rounds = null;
+						_rounds = null;
 						return;
 					}
 				}
-				else if(a + b > 10)
+				else if(a + b > 10) // for a regular frame a and b cannot be larger than 10 ( 10 pins only exists)
 				{
-					rounds = null;
+					_rounds = null;
 					return;
 				}
-				rounds.add(new Frame(a,b));
+				_rounds.add(new Frame(a,b));
 			}
 		}
 	}
@@ -65,50 +67,67 @@ public class BowlingGame {
 	 * @return Integer value of Bowling score, in case of error return value is -1 
 	 */
 	public int getScore() {
-		if(rounds == null)
+		if(_rounds == null) // no data / incorrect data
 		{
 			return -1;
 		}
 		int sum = 0;
 		for(int i = 0; i < 10; i++)
 		{
-			if(rounds.get(i).IsStrike()) // strike
+			if(_rounds.get(i).IsStrike()) // strike
 			{
-				if(i < rounds.size() -1) // make sure next round exists 
+				if(i < _rounds.size() -1) // make sure next round exists 
 				{
-					if(i == 9) // round 10
+					if(i == 9) // round 10 (AKA we got bonus throw frame ( where both might be 10, regular condition would jump over this. ) 
 					{
-						if(rounds.size() == 11)
+						if(_rounds.size() == 11) // make sure exists
 						{
-							sum += rounds.get(i+1).chanceOne + rounds.get(i+1).ChanceTwo;
+							sum += _rounds.get(i+1).chanceOne + _rounds.get(i+1).chanceTwo;
+						}
+						else // Missing bonus round .. error
+						{
+							return -1;
 						}
 					}
-					else if(rounds.get(i+1).chanceOne == 10) // strike with next being strike
+					else if(_rounds.get(i+1).chanceOne == 10) // strike with next being strike, jump to third frame then
 					{
-						if(i < rounds.size() -2)
+						if(i < _rounds.size() -2) // make sure the next next values exists
 						{
-							sum += rounds.get(i + 2).chanceOne;
+							sum += _rounds.get(i + 2).chanceOne;
 						}
-						sum += rounds.get(i+1).chanceOne;
+						else
+						{
+							return -1;
+						}
+						sum += _rounds.get(i+1).chanceOne;
 					}
-					else
+					else // base case where strike didn't follow
 					{
-						sum += rounds.get(i+1).chanceOne + rounds.get(i+1).ChanceTwo;
+						sum += _rounds.get(i+1).chanceOne + _rounds.get(i+1).chanceTwo;
 					}
 				}
-				sum += 10;
+				else // error missing bonus round
+				{
+					return -1;
+				}
+				
+				sum += 10; // Add for strike, always a 10 :)
 			}
-			else if(rounds.get(i).IsSpare()) // spare
+			else if(_rounds.get(i).IsSpare()) // spare
 			{
 				sum += 10;
-				if(i < rounds.size() -1)
+				if(i < _rounds.size() -1) // make sure next frame exists
 				{
-					sum += rounds.get(i+1).chanceOne;
+					sum += _rounds.get(i+1).chanceOne;
+				}
+				else // missing bonus round 
+				{
+					return -1;
 				}
 			}
 			else //total
 			{
-				sum += rounds.get(i).chanceOne + rounds.get(i).ChanceTwo;
+				sum += _rounds.get(i).chanceOne + _rounds.get(i).chanceTwo;
 			}
 		}
 		return sum;
@@ -119,9 +138,9 @@ public class BowlingGame {
 		public Frame(int one, int two)
 		{
 			chanceOne = one;
-			ChanceTwo = two;
+			chanceTwo = two;
 		}
-		public int chanceOne, ChanceTwo;
+		public int chanceOne, chanceTwo;
 		
 		public boolean IsStrike()
 		{
@@ -133,7 +152,7 @@ public class BowlingGame {
 			if(chanceOne == 10)
 				return false;
 			
-			return chanceOne + ChanceTwo == 10;
+			return chanceOne + chanceTwo == 10;
 		}
 	}
 }
