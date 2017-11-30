@@ -1,102 +1,99 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- WARNING: Eclipse auto-generated file.
-              Any modifications will be overwritten.
-              To include a user specific buildfile here, simply create one in the same
-              directory with the processing instruction <?eclipse.ant.import?>
-              as the first entry and export the buildfile again. --><project basedir="." default="build" name="Bowling Game Score">
-    <property environment="env"/>
-    <property name="junit.output.dir" value="junit"/>
-    <property name="debuglevel" value="source,lines,vars"/>
-    <property name="target" value="1.8"/>
-    <property name="source" value="1.8"/>
-    <path id="JUnit 5.libraryclasspath">
-        <pathelement location="../../Downloads/eclipse-java-oxygen-1a-win32-x86_64/eclipse/plugins/org.junit.jupiter.api_5.0.0.v20170910-2246.jar"/>
-        <pathelement location="../../Downloads/eclipse-java-oxygen-1a-win32-x86_64/eclipse/plugins/org.junit.jupiter.engine_5.0.0.v20170910-2246.jar"/>
-        <pathelement location="../../Downloads/eclipse-java-oxygen-1a-win32-x86_64/eclipse/plugins/org.junit.jupiter.migrationsupport_5.0.0.v20170910-2246.jar"/>
-        <pathelement location="../../Downloads/eclipse-java-oxygen-1a-win32-x86_64/eclipse/plugins/org.junit.jupiter.params_5.0.0.v20170910-2246.jar"/>
-        <pathelement location="../../Downloads/eclipse-java-oxygen-1a-win32-x86_64/eclipse/plugins/org.junit.platform.commons_1.0.0.v20170910-2246.jar"/>
-        <pathelement location="../../Downloads/eclipse-java-oxygen-1a-win32-x86_64/eclipse/plugins/org.junit.platform.engine_1.0.0.v20170910-2246.jar"/>
-        <pathelement location="../../Downloads/eclipse-java-oxygen-1a-win32-x86_64/eclipse/plugins/org.junit.platform.launcher_1.0.0.v20170910-2246.jar"/>
-        <pathelement location="../../Downloads/eclipse-java-oxygen-1a-win32-x86_64/eclipse/plugins/org.junit.platform.runner_1.0.0.v20170910-2246.jar"/>
-        <pathelement location="../../Downloads/eclipse-java-oxygen-1a-win32-x86_64/eclipse/plugins/org.junit.platform.suite.api_1.0.0.v20170910-2246.jar"/>
-        <pathelement location="../../Downloads/eclipse-java-oxygen-1a-win32-x86_64/eclipse/plugins/org.junit.vintage.engine_4.12.0.v20170910-2246.jar"/>
-        <pathelement location="../../Downloads/eclipse-java-oxygen-1a-win32-x86_64/eclipse/plugins/org.opentest4j_1.0.0.v20170910-2246.jar"/>
-        <pathelement location="../../Downloads/eclipse-java-oxygen-1a-win32-x86_64/eclipse/plugins/org.apiguardian_1.0.0.v20170910-2246.jar"/>
-        <pathelement location="../../Downloads/eclipse-java-oxygen-1a-win32-x86_64/eclipse/plugins/org.junit_4.12.0.v201504281640/junit.jar"/>
-        <pathelement location="../../Downloads/eclipse-java-oxygen-1a-win32-x86_64/eclipse/plugins/org.hamcrest.core_1.3.0.v201303031735.jar"/>
-    </path>
-    <path id="Bowling Game Score.classpath">
-        <pathelement location="bin"/>
-        <path refid="JUnit 5.libraryclasspath"/>
-    </path>
-    <target name="init">
-        <mkdir dir="bin"/>
-        <copy includeemptydirs="false" todir="bin">
-            <fileset dir="src">
-                <exclude name="**/*.java"/>
-            </fileset>
-        </copy>
-    </target>
-    <target name="clean">
-        <delete dir="bin"/>
-    </target>
-    <target depends="clean" name="cleanall"/>
-    <target depends="build-subprojects,build-project" name="build"/>
-    <target name="build-subprojects"/>
-    <target depends="init" name="build-project">
-        <echo message="${ant.project.name}: ${ant.file}"/>
-        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
-            <src path="src"/>
-            <classpath refid="Bowling Game Score.classpath"/>
-        </javac>
-    </target>
-    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
-    <target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
-        <copy todir="${ant.library.dir}">
-            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
-        </copy>
-        <unzip dest="${ant.library.dir}">
-            <patternset includes="jdtCompilerAdapter.jar"/>
-            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
-        </unzip>
-    </target>
-    <target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
-        <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
-        <antcall target="build"/>
-    </target>
-    <target name="BowlingGameTest">
-        <mkdir dir="${junit.output.dir}"/>
-        <junit fork="yes" printsummary="withOutAndErr">
-            <formatter type="xml"/>
-            <test name="BowlingGameTest" todir="${junit.output.dir}"/>
-            <jvmarg line="-ea"/>
-            <classpath refid="Bowling Game Score.classpath"/>
-        </junit>
-    </target>
-    <target name="BowlingGameTest.test01">
-        <mkdir dir="${junit.output.dir}"/>
-        <junit fork="yes" printsummary="withOutAndErr">
-            <formatter type="xml"/>
-            <test name="BowlingGameTest" todir="${junit.output.dir}"/>
-            <jvmarg line="-ea"/>
-            <classpath refid="Bowling Game Score.classpath"/>
-        </junit>
-    </target>
-    <target name="BowlingGameTest.test16">
-        <mkdir dir="${junit.output.dir}"/>
-        <junit fork="yes" printsummary="withOutAndErr">
-            <formatter type="xml"/>
-            <test name="BowlingGameTest" todir="${junit.output.dir}"/>
-            <jvmarg line="-ea"/>
-            <classpath refid="Bowling Game Score.classpath"/>
-        </junit>
-    </target>
-    <target name="junitreport">
-        <junitreport todir="${junit.output.dir}">
-            <fileset dir="${junit.output.dir}">
-                <include name="TEST-*.xml"/>
-            </fileset>
-            <report format="frames" todir="${junit.output.dir}"/>
-        </junitreport>
-    </target>
+<?xml version="1.0"?>
+
+<!--
+Copyright 2014-2015 The University of Edinburgh.
+Licensed under the Apache License, Version 2.0 (the "License"); 
+you may not use this file except in compliance with the License. 
+You may obtain a copy of the License at
+  http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software 
+distributed under the License is distributed on an "AS IS" BASIS, 
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+implied. See the License for the specific language governing
+permissions and limitations under the License.
+-->
+
+<project name="BowlingGame" default="all" basedir=".">
+
+  <description>
+  ANT build file to build and test math package.
+  </description>
+
+  <path id="classpath">
+    <pathelement location="build/classes"/>
+    <pathelement location="build/test/classes"/>
+    <fileset dir="lib">
+      <include name="*.jar"/>
+    </fileset>
+  </path>
+
+  <target name="init" description="Make build directories">
+    <mkdir dir="build"/>
+    <mkdir dir="build/lib"/>
+    <mkdir dir="build/classes"/>
+    <mkdir dir="build/test"/>
+    <mkdir dir="build/test/classes"/>
+  </target>
+
+  <target name="clean" description="Remove build directories">
+    <delete dir="build"/>
+  </target>
+
+  <target name="compile" description="Compile code" depends="init">
+    <javac srcdir="." 
+           destdir="build/classes"
+           includeantruntime="false">
+      <include name="**/*.java"/>
+	  <exclude name="**/*Test.java"/>
+    </javac>
+  </target>
+
+  <target name="compile-tests" description="Compile tests" depends="compile">
+    <javac srcdir="." 
+           destdir="build/test/classes"
+           includeantruntime="false">
+      <include name="**/*Test.java"/>
+      <classpath>
+        <path refid="classpath"/>
+      </classpath>
+    </javac>
+  </target>
+
+  <target name="test" description="Run tests" depends="compile-tests">
+    <mkdir dir="build/test/xml"/>
+    <junit printsummary="yes" 
+           haltonfailure="no">
+      <classpath>
+        <path refid="classpath"/>
+      </classpath>
+      <formatter type="xml"/>
+      <formatter type="plain" usefile="false"/>
+      <batchtest fork="yes"
+                 todir="build/test/xml">
+        <fileset dir=".">
+          <include name="**/*Test.java"/>
+        </fileset>
+      </batchtest>
+    </junit>
+    <junitreport todir="build/test/xml">
+      <fileset dir="build/test/xml">
+        <include name="TEST-*.xml"/>
+      </fileset>
+    </junitreport>
+  </target>
+
+  <target name="test-report"
+          description="Convert ANT junit XML reports into HTML">
+    <mkdir dir="build/test/html"/>
+    <junitreport todir="build/test/xml">
+      <fileset dir="build/test/xml">
+        <include name="TEST-*.xml"/>
+      </fileset>
+      <report todir="build/test/html"/>
+    </junitreport>
+  </target>
+
+  <target name="all" description="Clean, compile, JAR and run tests"
+          depends="clean, test, test-report"/>
+
 </project>
