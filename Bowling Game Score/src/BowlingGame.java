@@ -44,15 +44,7 @@ public class BowlingGame
 			{
 				int a = Integer.parseInt(numbers[0]);
 				int b = Integer.parseInt(numbers[1].replace("]", ""));
-				if(i == 11) // we are at a bonus frame
-				{
-					if(a > 10 || b > 10) // since two ten are allowed we do this
-					{
-						_rounds = null;
-						return;
-					}
-				}
-				else if(a + b > 10) // for a regular frame a and b cannot be larger than 10 ( 10 pins only exists)
+				if(a + b > 10 && i != 11) // for a regular frame a and b cannot be larger than 10 ( 10 pins only exists)
 				{
 					_rounds = null;
 					return;
@@ -80,14 +72,7 @@ public class BowlingGame
 				{
 					if(i == 9) // round 10 (AKA we got bonus throw frame ( where both might be 10, regular condition would jump over this. ) 
 					{
-						if(_rounds.size() == 11) // make sure exists
-						{
-							sum += _rounds.get(i+1).chanceOne + _rounds.get(i+1).chanceTwo;
-						}
-						else // Missing bonus round .. error
-						{
-							return -1;
-						}
+						sum += _rounds.get(i+1).chanceOne + _rounds.get(i+1).chanceTwo;
 					}
 					else if(_rounds.get(i+1).chanceOne == 10) // strike with next being strike, jump to third frame then
 					{
@@ -149,10 +134,7 @@ public class BowlingGame
 		
 		public boolean IsSpare()
 		{
-			if(chanceOne == 10)
-				return false;
-			
-			return chanceOne + chanceTwo == 10;
+			return (chanceOne != 10) && chanceOne + chanceTwo == 10;
 		}
 	}
 }
