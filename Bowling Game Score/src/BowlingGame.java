@@ -71,32 +71,19 @@ public class BowlingGame
 		{
 			if(_rounds.get(i).IsStrike()) // strike
 			{
-				if(i < _rounds.size() -1) // make sure next round exists 
+				if(i == 9) // round 10 (AKA we got bonus throw frame ( where both might be 10, regular condition would jump over this. ) 
 				{
-					if(i == 9) // round 10 (AKA we got bonus throw frame ( where both might be 10, regular condition would jump over this. ) 
-					{
-						sum += _rounds.get(i+1).chanceOne + _rounds.get(i+1).chanceTwo;
-					}
-					else if(_rounds.get(i+1).chanceOne == 10) // strike with next being strike, jump to third frame then
-					{
-						if(i < _rounds.size() -2) // make sure the next next values exists
-						{
-							sum += _rounds.get(i + 2).chanceOne;
-						}
-						else
-						{
-							return -1;
-						}
-						sum += _rounds.get(i+1).chanceOne;
-					}
-					else // base case where strike didn't follow
-					{
-						sum += _rounds.get(i+1).chanceOne + _rounds.get(i+1).chanceTwo;
-					}
+					sum += _rounds.get(i+1).chanceOne + _rounds.get(i+1).chanceTwo;
 				}
-				else // error missing bonus round
+				else if(_rounds.get(i+1).chanceOne == 10) // strike with next being strike, jump to third frame then
 				{
-					return -1;
+					sum += _rounds.get(i + 2).chanceOne;
+
+					sum += _rounds.get(i+1).chanceOne;
+				}
+				else // base case where strike didn't follow
+				{
+					sum += _rounds.get(i+1).chanceOne + _rounds.get(i+1).chanceTwo;
 				}
 				
 				sum += 10; // Add for strike, always a 10 :)
@@ -107,7 +94,6 @@ public class BowlingGame
 				if(i < _rounds.size() -1) // make sure next frame exists
 				{
 					sum += _rounds.get(i+1).chanceOne;
-					if(i == 9 && _rounds.get(i+1).chanceTwo > 0) return -1;
 				}
 				else // missing bonus round 
 				{
