@@ -23,9 +23,12 @@ public class BowlingGame
 	 */	 
 	public BowlingGame(String game)
 	{	
+		if(game == null)
+			return;
 		_rounds = new ArrayList<Frame>();
 		String[] parts = game.split("\\[");
-		String regex = "^(\\[([0-9],[0-9]|10,0|0,10)\\]){10}((\\[(([0-9],[0-9])|(10,0)|(0,10)|(10,10))\\])|(\\[(([0-9])|(10))\\]))?$"; // match with this nice pattern
+		//String regex = "^(\\[([0-9],[0-9]|10,0|0,10)\\]){10}((\\[(([0-9],[0-9])|(10,[0-9])|([0-9],10)|(10,10))\\])|(\\[(([0-9])|(10))\\]))?$"; // match with this nice pattern
+		String regex = "^(\\[([0-9],[0-9]|10,0|0,10)\\]){9}(((\\[10,0\\])\\[(([0-9],[0-9])|(10,[0-9])|([0-9],10)|(10,10))\\])|(\\[[0-9],([0-9]|(10))\\](\\[(([0-9])|(10))\\])?))$";
 		Pattern r = Pattern.compile(regex);
 		Matcher m = r.matcher(game);
 		if(!m.find()) // does it match ? 
@@ -104,6 +107,7 @@ public class BowlingGame
 				if(i < _rounds.size() -1) // make sure next frame exists
 				{
 					sum += _rounds.get(i+1).chanceOne;
+					if(i == 9 && _rounds.get(i+1).chanceTwo > 0) return -1;
 				}
 				else // missing bonus round 
 				{
@@ -112,6 +116,8 @@ public class BowlingGame
 			}
 			else //total
 			{
+				if(i == 9 && _rounds.size() == 11)
+					return -1;
 				sum += _rounds.get(i).chanceOne + _rounds.get(i).chanceTwo;
 			}
 		}

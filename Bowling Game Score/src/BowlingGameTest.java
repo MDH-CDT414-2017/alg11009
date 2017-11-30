@@ -103,7 +103,7 @@ public class BowlingGameTest extends TestCase {
 	// No hits at all
 	public void test17() {
         BowlingGame bowlingGame = new BowlingGame("[0,0][0,0][0,0][0,0][0,0][0,0][0,0][0,0][0,0][0,0][0,0]");
-        assertEquals(0, bowlingGame.getScore());
+        assertEquals(-1, bowlingGame.getScore());
     }
 	// Strike with bonus values missing
 	public void test18() {
