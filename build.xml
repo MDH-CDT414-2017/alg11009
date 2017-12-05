@@ -13,7 +13,7 @@ implied. See the License for the specific language governing
 permissions and limitations under the License.
 -->
 
-<project name="BowlingGame" default="all" basedir=".">
+<project name="Bowling Game Score" default="all" basedir=".">
 
   <description>
   ANT build file to build and test math package.
@@ -22,7 +22,7 @@ permissions and limitations under the License.
   <path id="classpath">
     <pathelement location="build/classes"/>
     <pathelement location="build/test/classes"/>
-    <fileset dir="BowlingGame/lib">
+    <fileset dir="Bowling Game Score/lib">
       <include name="*.jar"/>
     </fileset>
   </path>
@@ -40,7 +40,7 @@ permissions and limitations under the License.
   </target>
 
   <target name="compile" description="Compile code" depends="init">
-    <javac srcdir="BowlingGame/src" 
+    <javac srcdir="Bowling Game Score/src" 
            destdir="build/classes"
            includeantruntime="false">
       <include name="**/*.java"/>
@@ -49,7 +49,7 @@ permissions and limitations under the License.
   </target>
 
   <target name="compile-tests" description="Compile tests" depends="compile">
-    <javac srcdir="BowlingGame/src" 
+    <javac srcdir="Bowling Game Score/src" 
            destdir="build/test/classes"
            includeantruntime="false">
       <include name="**/*Test*.java"/>
@@ -70,7 +70,7 @@ permissions and limitations under the License.
       <formatter type="plain" usefile="false"/>
       <batchtest fork="yes"
                  todir="build/test/xml">
-        <fileset dir="BowlingGame/src">
+        <fileset dir="Bowling Game Score/src">
           <include name="**/*Test*.java"/>
         </fileset>
       </batchtest>
