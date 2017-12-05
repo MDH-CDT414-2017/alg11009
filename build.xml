@@ -45,7 +45,7 @@ this is a comment.
            destdir="build/classes"
            includeantruntime="false">
       <include name="**/*.java"/>
-	  <exclude name="**/*Test.java"/>
+	  <exclude name="**/*Test*.java"/>
     </javac>
   </target>
 
@@ -53,7 +53,7 @@ this is a comment.
     <javac srcdir="Bowling Game Score/src"
            destdir="build/test/classes"
            includeantruntime="false">
-      <include name="**/*Test.java"/>
+      <include name="**/*Test*.java"/>
       <classpath>
         <path refid="classpath"/>
       </classpath>
@@ -72,7 +72,7 @@ this is a comment.
       <batchtest fork="yes"
                  todir="build/test/xml">
         <fileset dir="Bowling Game Score/src">
-          <include name="**/*Test.java"/>
+          <include name="**/*Test*.java"/>
         </fileset>
       </batchtest>
     </junit>
