@@ -22,7 +22,7 @@ permissions and limitations under the License.
   <path id="classpath">
     <pathelement location="build/classes"/>
     <pathelement location="build/test/classes"/>
-    <fileset dir="lib">
+    <fileset dir="BowlingGame/lib">
       <include name="*.jar"/>
     </fileset>
   </path>
@@ -40,7 +40,7 @@ permissions and limitations under the License.
   </target>
 
   <target name="compile" description="Compile code" depends="init">
-    <javac srcdir="." 
+    <javac srcdir="BowlingGame/src" 
            destdir="build/classes"
            includeantruntime="false">
       <include name="**/*.java"/>
@@ -49,10 +49,10 @@ permissions and limitations under the License.
   </target>
 
   <target name="compile-tests" description="Compile tests" depends="compile">
-    <javac srcdir="." 
+    <javac srcdir="BowlingGame/tests" 
            destdir="build/test/classes"
            includeantruntime="false">
-      <include name="**/*Test.java"/>
+      <include name="**/*Test*.java"/>
       <classpath>
         <path refid="classpath"/>
       </classpath>
@@ -70,8 +70,8 @@ permissions and limitations under the License.
       <formatter type="plain" usefile="false"/>
       <batchtest fork="yes"
                  todir="build/test/xml">
-        <fileset dir=".">
-          <include name="**/*Test.java"/>
+        <fileset dir="BowlingGame/tests">
+          <include name="**/*Test*.java"/>
         </fileset>
       </batchtest>
     </junit>
